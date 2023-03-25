@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  <style>
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 50px;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-gap: 10px;
+      padding: 10px;
+    }
+
+    .button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #3e8e41;
+    }
+
+    #display {
+      width: 20%;
+      height: 50px;
+      font-size: 30px;
+      text-align: right;
+      padding: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <input type="text" name="" id="display" readonly>
+    <div class="calculator">
+      <button class="button" id="clear">C</button>
+      <button class="button" id="divide">/</button>
+      <button class="button" id="multiply">*</button>
+      <button class="button" id="subtract">-</button>
+      <button class="button" id="7">7</button>
+      <button class="button" id="8">8</button>
+      <button class="button" id="9">9</button>
+      <button class="button" id="add">+</button>
+      <button class="button" id="4">4</button>
+      <button class="button" id="5">5</button>
+      <button class="button" id="6">6</button>
+      <button class="button" id="equal">=</button>
+      <button class="button" id="1">1</button>
+      <button class="button" id="2">2</button>
+      <button class="button" id="3">3</button>
+      <button class="button" id="0">0</button>
+    </div>
+  </div>
+  <script>
+    const display = document.getElementById("display");
+    const clear = document.getElementById("clear");
+    const divide = document.getElementById("divide");
+    const multiply = document.getElementById("multiply");
+    const subtract = document.getElementById("subtract");
+    const add = document.getElementById("add");
+    const equal = document.getElementById("equal");
+    const buttons = document.querySelectorAll(".button:not(#clear):not(#equal)");
+
+    let value1 = 0;
+    let operator = null;
+
+    clear.addEventListener("click", () => {
+      display.value = "";
+      value1 = 0;
+      operator = null;
+    });
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const value2 = parseInt(button.id);
+        if (isNaN(value2)) {
+          operator = button.id;
+        } else {
+          display.value += value2;
+        }
+      });
+    });
+    equal.addEventListener("click", () => {
+      try {
+        const value2 = parseInt(display.value);
+        let result = 0;
+        switch (operator) {
+          case "add":
+            result = value1 + value2;
+            break;
+          case "subtract":
+            result = value1 - value2;
+            break;
+          case "multiply":
+            result = value1 * value2;
+            break;
+          case "divide":
+            if (value2 === 0) {
+              throw new Error("Cannot divide by zero");
+            }
+            result = value1 / value2;
+            break;
+          default:
+            throw new Error("Invalid operator");
+        }
+            display.value = result;
+            value1 = result;
+            operator = null;
+            } catch (error) {
+            alert(error.message);
+            display.value = "";
+            value1 = 0;
+            operator = null;
+             }
+            });
+  </script>
+</body>
+
+</html>
+

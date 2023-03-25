@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Counter Example</title>
+    <style>
+    #counter {
+    font-size: 2em;
+    color: blue;
+    }
+    h1 {
+     text-align: center;
+     font-size: 5rem;
+    }
+    </style>
+</head>
+<body>
+    
+    <h1>Counter: <span id="counter"></span></h1>
+   
+    <script>
+        function Clock(){
+            const clock=document.getElementById("counter");
+            const now=new Date();
+            const hours=now.getHours();
+            const minutes=now.getMinutes();
+            const seconds=now.getSeconds();
+            clock.textContent = `${hours} :${minutes} : ${seconds}`
+        } 
+        setInterval(Clock,100);    
+    </script>
+</body>
+</html>
